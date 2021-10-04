@@ -1,6 +1,6 @@
-# tiktok-nowatermark
+# Tiktok No Watermark
 
-Tiktok Video Downloader without watermark
+Simple downloader for tiktok video (without watermark tiktok)
 
 # Installation & Usage
 **Requirement: python 3**
