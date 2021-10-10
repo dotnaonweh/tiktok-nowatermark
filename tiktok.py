@@ -23,16 +23,10 @@ headers = {
     'Sec-Fetch-User': '?1',
 }
 
-name = random.randrange(0,1000)
 url = input("Link Video => ")
-req_url = requests.get('https://savetiktok.cc/en/download?url='+url, headers=headers).text
-rex = re.findall('<option value="(.*?)"', req_url)
-rep = rex[0]
-rx = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|)+', rep)
-result = html.unescape(rx)
-x = result[0]
-replacing = x.replace("&amp;", "&")
-url = replacing
+response = requests.get('https://savetiktok.cc/en/download?url='+url, headers=headers).text
+rex = re.findall('<option value="(.*?)"', response)[0]
+video_url = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|)+', rex)[0].replace("&amp;", "&")
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0',
@@ -48,12 +42,14 @@ headers = {
     'Sec-Fetch-User': '?1',
 }
 
-name = random.randrange(0,1000)
-req_video = requests.get(url, headers=headers)
+name = random.randrange(0, 1000)
+res_video = requests.get(video_url, headers=headers)
 with open("Result/tiktok-"+str(name)+".mp4", 'wb') as fl:
-    fl.write(req_video.content)
+    fl.write(res_video.content)
     fl.close()
-print("\nDone, Check folder Result")
+print("Result/tiktok-"+str(name)+".mp4")
+print("Done, Check folder Result")
+
 # import requests
 # import re
 # import html
