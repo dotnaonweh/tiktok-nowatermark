@@ -1,6 +1,5 @@
 import requests
 import re
-import html
 import random
 import os
 
