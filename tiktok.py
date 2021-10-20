@@ -14,7 +14,7 @@ headers = {
     'Accept-Language': 'id,en-US;q=0.7,en;q=0.3',
     'Alt-Used': 'savetiktok.cc',
     'Connection': 'keep-alive',
-    'Referer': 'https://savetiktok.cc/en/download?url=',
+    'Referer': 'https://savetiktok.cc/en/download?url=https%3A%2F%2Fwww.tiktok.com%2F%40ni94%2Fvideo%2F69996',
     'Upgrade-Insecure-Requests': '1',
     'Sec-Fetch-Dest': 'document',
     'Sec-Fetch-Mode': 'navigate',
