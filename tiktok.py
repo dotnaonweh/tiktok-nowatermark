@@ -19,17 +19,6 @@ def tiktok(target):
     filename = random.randrange(0, 1000)
     if 'tiktok.com' not in target:
         print("Link Error")
-    # new tiktok mobile link vt.tiktok.com change to tiktok.com/t
-    elif 'tiktok.com/t/':
-        response = requests.get(target).text
-        regex = re.findall('content="(.*?)"', response)[-1].replace("&amp;", "&")
-        response1 = requests.get('https://savett.cc/en/download?url='+regex, headers=headers).text
-        regex = re.findall('<option value="(.*?)"', response1)[0]
-        video_url = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|)+', regex)[0].replace("&amp;", "&")
-        res_video = requests.get(video_url, headers=headers)
-        with open("Result/tiktok-"+str(filename)+".mp4", 'wb') as fl:
-            fl.write(res_video.content)
-        print("Download done, check folder Result")
     else:
         response = requests.get('https://savett.cc/en/download?url='+target, headers=headers).text
         regex = re.findall('<option value="(.*?)"', response)[0]
