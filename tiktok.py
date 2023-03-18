@@ -1,53 +1,24 @@
 import requests
-import re
-import random
-import os
-import sys
-import time
+import json
 
 
 def tiktok(target):
     headers = {
-        'authority': 'api.app.downtik.com',
-        'accept': '*/*',
-        'accept-language': 'en-US,en;q=0.9',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'origin': 'https://downtik.com',
-        'referer': 'https://downtik.com/',
-        'sec-ch-ua': '" Not;A Brand";v="99", "Microsoft Edge";v="103", "Chromium";v="103"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0',
+        'X-Rapidapi-Key': '3d204a970emshd8658b3f3e32d6dp138ebcjsn7a898b2a7b31',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.1661.41',
     }
 
-    data = {
-        'url': target,
-        'lang': 'id',
-    }
-    filename = random.randrange(0, 1000)
-    if 'tiktok.com' not in data['url']:
+    if 'tiktok.com' not in target:
         print("Link Error")
     else:
-        response = requests.post(
-            'https://api.app.downtik.com/a.php', headers=headers, data=data).text
-        regex = re.findall('<a href="(.*?)"', response)[0]
-        res_video = requests.get(regex, headers=headers)
-        with open("Result/tiktok-"+str(filename)+".mp4", 'wb') as fl:
+        response = requests.get(
+            'https://tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com/vid/index?url='+str(target), headers=headers)
+        data = json.loads(response.text)
+        videos = data['video'][0]
+        filename = data['videoid'][0]
+        res_video = requests.get(videos, headers=headers)
+        with open("Result/"+str(filename)+".mp4", 'wb') as fl:
             fl.write(res_video.content)
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("")
-            print("                  Tiktok No Watermark Downloader")
-            print("")
-            animation = ["[■□□□□□□□□□] 10%", "[■■□□□□□□□□] 20%", "[■■■□□□□□□□] 30%", "[■■■■□□□□□□] 40%", "[■■■■■□□□□□] 50%",
-                         "[■■■■■■□□□□] 60%", "[■■■■■■■□□□] 70%", "[■■■■■■■■□□] 80%", "[■■■■■■■■■□] 90%", "[■■■■■■■■■■] 100%"]
-            for i in range(len(animation)):
-                time.sleep(0.5)
-                sys.stdout.write("\r[+] Downloading... " +
-                                 animation[i % len(animation)])
-                sys.stdout.flush()
             print("\n[*] Download done, check folder Result.")
 
 
